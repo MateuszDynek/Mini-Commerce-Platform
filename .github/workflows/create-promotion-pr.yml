@@ -1,0 +1,116 @@
+name: Create Promotion PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      promotion:
+        description: "Promotion path"
+        required: true
+        type: choice
+        options:
+          - develop-to-uat
+          - uat-to-prod
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-promotion-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Determine promotion branches
+        run: |
+          if [ "${{ inputs.promotion }}" = "develop-to-uat" ]; then
+            echo "SOURCE_BRANCH=develop" >> "$GITHUB_ENV"
+            echo "TARGET_BRANCH=uat" >> "$GITHUB_ENV"
+            echo "TITLE=Promote develop to UAT" >> "$GITHUB_ENV"
+          elif [ "${{ inputs.promotion }}" = "uat-to-prod" ]; then
+            echo "SOURCE_BRANCH=uat" >> "$GITHUB_ENV"
+            echo "TARGET_BRANCH=main" >> "$GITHUB_ENV"
+            echo "TITLE=Promote UAT to PROD" >> "$GITHUB_ENV"
+          else
+            echo "Unsupported promotion path"
+            exit 1
+          fi
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PR_TOKEN }}
+
+      - name: Check if PR already exists
+        id: existing_pr
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+        run: |
+          EXISTING_PR_URL="$(gh pr list \
+            --base "$TARGET_BRANCH" \
+            --head "$SOURCE_BRANCH" \
+            --state open \
+            --json url \
+            --jq '.[0].url // ""')"
+
+          echo "url=$EXISTING_PR_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Stop if PR already exists
+        if: steps.existing_pr.outputs.url != ''
+        run: |
+          echo "Promotion PR already exists:"
+          echo "${{ steps.existing_pr.outputs.url }}"
+          exit 0
+
+      - name: Check if there are commits to promote
+        id: diff
+        run: |
+          git fetch origin "$SOURCE_BRANCH" "$TARGET_BRANCH"
+
+          COMMITS_COUNT="$(git rev-list --count "origin/$TARGET_BRANCH..origin/$SOURCE_BRANCH")"
+          echo "commits_count=$COMMITS_COUNT" >> "$GITHUB_OUTPUT"
+
+          if [ "$COMMITS_COUNT" = "0" ]; then
+            echo "No commits to promote from $SOURCE_BRANCH to $TARGET_BRANCH."
+            exit 0
+          fi
+
+      - name: Generate PR body
+        if: steps.diff.outputs.commits_count != '0'
+        run: |
+          {
+            echo "## Promotion"
+            echo ""
+            echo "\`$SOURCE_BRANCH\` → \`$TARGET_BRANCH\`"
+            echo ""
+            echo "## Commits included"
+            echo ""
+            git log "origin/$TARGET_BRANCH..origin/$SOURCE_BRANCH" \
+              --pretty=format:"- %h %s (%an)" \
+              --reverse
+            echo ""
+            echo ""
+            echo "## Checklist"
+            echo ""
+            if [ "$TARGET_BRANCH" = "uat" ]; then
+              echo "- [ ] Validate UAT workflow passed"
+              echo "- [ ] Basic UAT smoke test completed"
+            else
+              echo "- [ ] Validate PROD workflow passed"
+              echo "- [ ] PROD deployment approval completed"
+              echo "- [ ] Destructive changes reviewed"
+            fi
+          } > pr_body.md
+
+          cat pr_body.md
+
+      - name: Create promotion PR
+        if: steps.diff.outputs.commits_count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+        run: |
+          gh pr create \
+            --base "$TARGET_BRANCH" \
+            --head "$SOURCE_BRANCH" \
+            --title "$TITLE" \
+            --body-file pr_body.md
