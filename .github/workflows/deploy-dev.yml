@@ -30,8 +30,4 @@ jobs:
             --alias mcp-dev
 
       - name: Deploy to DEV
-        run: |
-          sf project deploy start \
-            --target-org mcp-dev \
-            --test-level RunLocalTests \
-            --wait 30
+        run: ./scripts/deploy.sh mcp-dev deploy

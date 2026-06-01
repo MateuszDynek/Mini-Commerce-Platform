@@ -30,9 +30,4 @@ jobs:
             --alias mcp-dev
 
       - name: Validate deployment to DEV
-        run: |
-          sf project deploy start \
-            --target-org mcp-dev \
-            --dry-run \
-            --test-level RunLocalTests \
-            --wait 30
+        run: ./scripts/deploy.sh mcp-dev validate

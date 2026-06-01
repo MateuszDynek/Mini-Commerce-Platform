@@ -30,9 +30,4 @@ jobs:
             --alias mcp-uat
 
       - name: Validate deployment to UAT
-        run: |
-          sf project deploy start \
-            --target-org mcp-uat \
-            --dry-run \
-            --test-level RunLocalTests \
-            --wait 30
+        run: ./scripts/deploy.sh mcp-uat validate

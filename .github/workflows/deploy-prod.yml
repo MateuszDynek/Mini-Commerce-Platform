@@ -31,8 +31,4 @@ jobs:
             --alias mcp-prod
 
       - name: Deploy to PROD
-        run: |
-          sf project deploy start \
-            --target-org mcp-prod \
-            --test-level RunLocalTests \
-            --wait 30
+        run: ./scripts/deploy.sh mcp-prod deploy
