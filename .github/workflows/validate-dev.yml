@@ -18,7 +18,8 @@ jobs:
 
       - name: Write JWT key to file
         run: |
-          echo "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          printf "%s" "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          chmod 600 server.key
 
       - name: Authenticate to DEV
         run: |
@@ -33,5 +34,5 @@ jobs:
           sf project deploy start \
             --target-org mcp-dev \
             --dry-run \
-            --test-level RunSpecifiedTests \
-            --tests ProductServiceTest
+            --test-level RunLocalTests \
+            --wait 30

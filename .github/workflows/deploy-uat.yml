@@ -1,12 +1,12 @@
-name: Deploy DEV
+name: Deploy UAT
 
 on:
   push:
     branches:
-      - develop
+      - uat
 
 jobs:
-  deploy-dev:
+  deploy-uat:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,20 +18,20 @@ jobs:
 
       - name: Write JWT key to file
         run: |
-          printf "%s" "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          printf "%s" "${{ secrets.SF_UAT_JWT_KEY }}" > server.key
           chmod 600 server.key
 
-      - name: Authenticate to DEV
+      - name: Authenticate to UAT
         run: |
           sf org login jwt \
-            --client-id "${{ secrets.SF_DEV_CLIENT_ID }}" \
+            --client-id "${{ secrets.SF_UAT_CLIENT_ID }}" \
             --jwt-key-file server.key \
-            --username "${{ secrets.SF_DEV_USERNAME }}" \
-            --alias mcp-dev
+            --username "${{ secrets.SF_UAT_USERNAME }}" \
+            --alias mcp-uat
 
-      - name: Deploy to DEV
+      - name: Deploy to UAT
         run: |
           sf project deploy start \
-            --target-org mcp-dev \
+            --target-org mcp-uat \
             --test-level RunLocalTests \
             --wait 30

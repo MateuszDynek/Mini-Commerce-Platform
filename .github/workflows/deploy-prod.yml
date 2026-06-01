@@ -1,13 +1,14 @@
-name: Deploy DEV
+name: Deploy PROD
 
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
-  deploy-dev:
+  deploy-prod:
     runs-on: ubuntu-latest
+    environment: prod
 
     steps:
       - name: Checkout repository
@@ -18,20 +19,20 @@ jobs:
 
       - name: Write JWT key to file
         run: |
-          printf "%s" "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          printf "%s" "${{ secrets.SF_PROD_JWT_KEY }}" > server.key
           chmod 600 server.key
 
-      - name: Authenticate to DEV
+      - name: Authenticate to PROD
         run: |
           sf org login jwt \
-            --client-id "${{ secrets.SF_DEV_CLIENT_ID }}" \
+            --client-id "${{ secrets.SF_PROD_CLIENT_ID }}" \
             --jwt-key-file server.key \
-            --username "${{ secrets.SF_DEV_USERNAME }}" \
-            --alias mcp-dev
+            --username "${{ secrets.SF_PROD_USERNAME }}" \
+            --alias mcp-prod
 
-      - name: Deploy to DEV
+      - name: Deploy to PROD
         run: |
           sf project deploy start \
-            --target-org mcp-dev \
+            --target-org mcp-prod \
             --test-level RunLocalTests \
             --wait 30
