@@ -1,0 +1,33 @@
+name: Validate DEV
+
+on:
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  validate-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Write JWT key to file
+        run: |
+          printf "%s" "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          chmod 600 server.key
+
+      - name: Authenticate to DEV
+        run: |
+          sf org login jwt \
+            --client-id "${{ secrets.SF_DEV_CLIENT_ID }}" \
+            --jwt-key-file server.key \
+            --username "${{ secrets.SF_DEV_USERNAME }}" \
+            --alias mcp-dev
+
+      - name: Validate deployment to DEV
+        run: ./scripts/deploy.sh mcp-dev validate

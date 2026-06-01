@@ -1,0 +1,33 @@
+name: Validate UAT
+
+on:
+  pull_request:
+    branches:
+      - uat
+
+jobs:
+  validate-uat:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Write JWT key to file
+        run: |
+          printf "%s" "${{ secrets.SF_UAT_JWT_KEY }}" > server.key
+          chmod 600 server.key
+
+      - name: Authenticate to UAT
+        run: |
+          sf org login jwt \
+            --client-id "${{ secrets.SF_UAT_CLIENT_ID }}" \
+            --jwt-key-file server.key \
+            --username "${{ secrets.SF_UAT_USERNAME }}" \
+            --alias mcp-uat
+
+      - name: Validate deployment to UAT
+        run: ./scripts/deploy.sh mcp-uat validate
