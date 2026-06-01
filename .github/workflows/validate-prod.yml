@@ -1,12 +1,12 @@
-name: Validate DEV
+name: Validate PROD
 
 on:
   pull_request:
     branches:
-      - develop
+      - main
 
 jobs:
-  validate-dev:
+  validate-prod:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,16 +18,16 @@ jobs:
 
       - name: Write JWT key to file
         run: |
-          printf "%s" "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          printf "%s" "${{ secrets.SF_PROD_JWT_KEY }}" > server.key
           chmod 600 server.key
 
-      - name: Authenticate to DEV
+      - name: Authenticate to PROD
         run: |
           sf org login jwt \
-            --client-id "${{ secrets.SF_DEV_CLIENT_ID }}" \
+            --client-id "${{ secrets.SF_PROD_CLIENT_ID }}" \
             --jwt-key-file server.key \
-            --username "${{ secrets.SF_DEV_USERNAME }}" \
-            --alias mcp-dev
+            --username "${{ secrets.SF_PROD_USERNAME }}" \
+            --alias mcp-prod
 
-      - name: Validate deployment to DEV
-        run: ./scripts/deploy.sh mcp-dev validate
+      - name: Validate deployment to PROD
+        run: ./scripts/deploy.sh mcp-prod validate
