@@ -11,6 +11,6 @@ private class ProductServiceTest {
     static void shouldReturnVersion() {
         String result = ProductService.getVersion();
 
-        System.assertEquals('1.0.0', result);
+        System.assertEquals('2.0.0', result);
     }
 }

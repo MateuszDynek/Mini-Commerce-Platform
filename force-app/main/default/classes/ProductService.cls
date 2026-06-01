@@ -4,6 +4,6 @@ public with sharing class ProductService {
     }
 
     public static String getVersion() {
-        return '1.0.0';
+        return '2.0.0';
     }
 }
