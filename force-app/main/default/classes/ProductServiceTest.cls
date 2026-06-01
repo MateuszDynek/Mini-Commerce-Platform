@@ -6,4 +6,11 @@ private class ProductServiceTest {
 
         System.assertEquals('Mini Commerce Product Service', result);
     }
+
+    @IsTest
+    static void shouldReturnVersion() {
+        String result = ProductService.getVersion();
+
+        System.assertEquals('1.0.0', result);
+    }
 }
