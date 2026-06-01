@@ -1,0 +1,33 @@
+name: Validate PROD
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate-prod:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Write JWT key to file
+        run: |
+          printf "%s" "${{ secrets.SF_PROD_JWT_KEY }}" > server.key
+          chmod 600 server.key
+
+      - name: Authenticate to PROD
+        run: |
+          sf org login jwt \
+            --client-id "${{ secrets.SF_PROD_CLIENT_ID }}" \
+            --jwt-key-file server.key \
+            --username "${{ secrets.SF_PROD_USERNAME }}" \
+            --alias mcp-prod
+
+      - name: Validate deployment to PROD
+        run: ./scripts/deploy.sh mcp-prod validate
