@@ -21,7 +21,6 @@ jobs:
 
     steps:
       - name: Determine promotion branches
-        id: vars
         run: |
           if [ "${{ inputs.promotion }}" = "develop-to-uat" ]; then
             echo "SOURCE_BRANCH=develop" >> "$GITHUB_ENV"
@@ -40,11 +39,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.RELEASE_PR_TOKEN }}
 
       - name: Check if PR already exists
         id: existing_pr
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN || github.token }}
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
         run: |
           EXISTING_PR_URL="$(gh pr list \
             --base "$TARGET_BRANCH" \
@@ -90,11 +90,16 @@ jobs:
               --reverse
             echo ""
             echo ""
-            echo "## Validation"
+            echo "## Checklist"
             echo ""
-            echo "- [ ] GitHub validation workflow passed"
-            echo "- [ ] UAT smoke test completed"
-            echo "- [ ] Destructive changes reviewed, if applicable"
+            if [ "$TARGET_BRANCH" = "uat" ]; then
+              echo "- [ ] Validate UAT workflow passed"
+              echo "- [ ] Basic UAT smoke test completed"
+            else
+              echo "- [ ] Validate PROD workflow passed"
+              echo "- [ ] PROD deployment approval completed"
+              echo "- [ ] Destructive changes reviewed"
+            fi
           } > pr_body.md
 
           cat pr_body.md
@@ -102,7 +107,7 @@ jobs:
       - name: Create promotion PR
         if: steps.diff.outputs.commits_count != '0'
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN || github.token }}
+          GH_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
         run: |
           gh pr create \
             --base "$TARGET_BRANCH" \
