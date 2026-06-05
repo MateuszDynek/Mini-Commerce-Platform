@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <target-org> [deploy|validate]"
+  exit 1
+fi
+
 TARGET_ORG="$1"
 MODE="${2:-validate}"
 
