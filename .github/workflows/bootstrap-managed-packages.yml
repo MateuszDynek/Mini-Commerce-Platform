@@ -1,0 +1,60 @@
+name: Bootstrap Managed Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target Salesforce environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - uat
+          - prod
+
+jobs:
+  bootstrap-managed-packages:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Salesforce CLI
+        run: npm install --global @salesforce/cli
+
+      - name: Determine target environment
+        run: |
+          if [ "${{ inputs.environment }}" = "dev" ]; then
+            echo "ORG_ALIAS=mcp-dev" >> "$GITHUB_ENV"
+            echo "CLIENT_ID=${{ secrets.SF_DEV_CLIENT_ID }}" >> "$GITHUB_ENV"
+            echo "USERNAME=${{ secrets.SF_DEV_USERNAME }}" >> "$GITHUB_ENV"
+            printf "%s" "${{ secrets.SF_DEV_JWT_KEY }}" > server.key
+          elif [ "${{ inputs.environment }}" = "uat" ]; then
+            echo "ORG_ALIAS=mcp-uat" >> "$GITHUB_ENV"
+            echo "CLIENT_ID=${{ secrets.SF_UAT_CLIENT_ID }}" >> "$GITHUB_ENV"
+            echo "USERNAME=${{ secrets.SF_UAT_USERNAME }}" >> "$GITHUB_ENV"
+            printf "%s" "${{ secrets.SF_UAT_JWT_KEY }}" > server.key
+          elif [ "${{ inputs.environment }}" = "prod" ]; then
+            echo "ORG_ALIAS=mcp-prod" >> "$GITHUB_ENV"
+            echo "CLIENT_ID=${{ secrets.SF_PROD_CLIENT_ID }}" >> "$GITHUB_ENV"
+            echo "USERNAME=${{ secrets.SF_PROD_USERNAME }}" >> "$GITHUB_ENV"
+            printf "%s" "${{ secrets.SF_PROD_JWT_KEY }}" > server.key
+          else
+            echo "Unsupported environment: ${{ inputs.environment }}"
+            exit 1
+          fi
+
+          chmod 600 server.key
+
+      - name: Authenticate to Salesforce
+        run: |
+          sf org login jwt \
+            --client-id "$CLIENT_ID" \
+            --jwt-key-file server.key \
+            --username "$USERNAME" \
+            --alias "$ORG_ALIAS"
+
+      - name: Install managed package dependencies
+        run: |
+          bash scripts/install_managed_packages.sh "$ORG_ALIAS"
