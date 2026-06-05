@@ -3,10 +3,32 @@
     {
       "path": "force-app",
       "default": true
+    },
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "vendor/fflib-apex-mocks/sfdx-source/apex-mocks",
+      "default": false,
+      "package": "fflib-apex-mocks",
+      "versionDescription": ""
+    },
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "vendor/fflib-apex-common/sfdx-source/apex-common",
+      "default": false,
+      "package": "fflib-apex-common",
+      "versionDescription": ""
     }
   ],
   "name": "mini-commerce-platform",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "66.0"
+  "sourceApiVersion": "66.0",
+  "packageAliases": {
+    "fflib-apex-mocks": "0Hod20000003j2DCAQ",
+    "fflib-apex-mocks@0.1.0-1": "04td2000000Q7fNAAS",
+    "fflib-apex-common": "0Hod20000003j3pCAA",
+    "fflib-apex-common@0.1.0-1": "04td2000000Q7gzAAC"
+  }
 }
