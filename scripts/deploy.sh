@@ -2,7 +2,7 @@
 set -euo pipefail
 
 TARGET_ORG="$1"
-MODE="${2:-deploy}"
+MODE="${2:-validate}"
 
 FORCE_APP_DIR="force-app"
 DESTRUCTIVE_DIR=".deploy/destructive"
