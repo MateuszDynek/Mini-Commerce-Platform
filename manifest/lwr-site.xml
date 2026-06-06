@@ -14,6 +14,14 @@
     </types>
     <types>
         <members>*</members>
+        <name>NetworkBranding</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>NavigationMenu</name>
+    </types>
+    <types>
+        <members>*</members>
         <name>CustomSite</name>
     </types>
     <version>64.0</version>
