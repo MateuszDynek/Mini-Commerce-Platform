@@ -14,21 +14,21 @@
             "layoutDirectionTablet" : "column",
             "maxContentWidth" : "",
             "sectionColumnGutterWidth" : "",
-            "sectionConfig" : "{\"UUID\":\"6d48b4ab-4a24-40ad-a930-3b8b429b39c5\",\"columns\":[{\"UUID\":\"9cda4594-e3ea-404e-a5de-8afa77763c01\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
+            "sectionConfig" : "{\"UUID\":\"b28d9446-d32d-400e-bc66-21a10ad18d74\",\"columns\":[{\"UUID\":\"f8df12dd-8962-48aa-8b2f-d90d1722e587\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":[]}]}",
             "sectionMinHeight" : "",
             "sectionVerticalAlign" : "flex-start"
           },
           "children" : [ {
-            "id" : "9cda4594-e3ea-404e-a5de-8afa77763c01",
+            "id" : "f8df12dd-8962-48aa-8b2f-d90d1722e587",
             "name" : "col1",
             "title" : "Column 1",
             "type" : "region"
           } ],
           "definition" : "community_layout:section",
-          "id" : "6d48b4ab-4a24-40ad-a930-3b8b429b39c5",
+          "id" : "b28d9446-d32d-400e-bc66-21a10ad18d74",
           "type" : "component"
         } ],
-        "id" : "8762e8a4-1449-4a52-90c7-8a37003ac047",
+        "id" : "d5490093-762b-4ca1-abcf-79048ffd6137",
         "name" : "content",
         "title" : "Content",
         "type" : "region"
@@ -41,16 +41,16 @@
             "recordId" : "{!recordId}"
           },
           "definition" : "community_builder:seoAssistant",
-          "id" : "f9549310-9e86-4cf8-ad53-0068ea471435",
+          "id" : "fd711c50-6e08-4e01-bddd-cefccb104a5b",
           "type" : "component"
         } ],
-        "id" : "95c97af3-3c6b-4d9f-b49d-78499aa7cbfb",
+        "id" : "2097df55-44cc-4553-96cb-33ac76461e55",
         "name" : "sfdcHiddenRegion",
         "title" : "sfdcHiddenRegion",
         "type" : "region"
       } ],
       "definition" : "community_layout:sldsFlexibleLayout",
-      "id" : "e3f3dd82-6e80-4331-8788-3359bbef0178",
+      "id" : "bb09aaad-3c40-4024-bbb3-4302fba5e0fd",
       "type" : "component"
     },
     "dataProviders" : [ ],

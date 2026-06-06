@@ -14,7 +14,7 @@
             "layoutDirectionTablet" : "column",
             "maxContentWidth" : "",
             "sectionColumnGutterWidth" : "",
-            "sectionConfig" : "{\"UUID\":\"059a45c1-4030-4cba-8d84-67099b29f4eb\",\"columns\":[{\"UUID\":\"1b9996b9-e80f-49ca-8c51-1fe5f06da15e\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionConfig" : "{\"UUID\":\"9e2829b9-4a0f-4f18-82cd-992199b647e6\",\"columns\":[{\"UUID\":\"af6aec48-b4bd-4f4a-82c7-d8c3fdf5f2e7\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
             "sectionMinHeight" : "",
             "sectionVerticalAlign" : "flex-start"
           },
@@ -27,7 +27,7 @@
                 "logoWidth" : 250
               },
               "definition" : "dxp_content_layout:siteLogo",
-              "id" : "fac61df1-eb15-41b7-8e98-8b22262ddb9b",
+              "id" : "57d922c2-e406-4104-82e2-46491ac27636",
               "type" : "component"
             }, {
               "attributes" : {
@@ -41,35 +41,26 @@
                 "usernameLabel" : "Username"
               },
               "definition" : "community_login:loginForm",
-              "id" : "923175d6-547f-4a0e-b90d-578fedd59c96",
-              "type" : "component"
-            }, {
-              "attributes" : {
-                "showHeader" : false,
-                "socialLoginHeader" : "Or log in using:",
-                "useCommunityDomainSso" : true
-              },
-              "definition" : "community_login:socialLogin",
-              "id" : "c79fb06b-7808-4f5f-ac95-d3e48a911f33",
+              "id" : "a5a173d2-ed6a-4858-8dc0-c2829704370f",
               "type" : "component"
             }, {
               "attributes" : {
                 "employeeLoginLinkLabel" : "Are you an employee? Log in"
               },
               "definition" : "community_login:employeeLoginLink",
-              "id" : "9cb93d14-6c90-4d2e-8ba4-3d96f1249da9",
+              "id" : "ae9f0e6a-33bc-4bad-8f6e-16d054bc5bf3",
               "type" : "component"
             } ],
-            "id" : "1b9996b9-e80f-49ca-8c51-1fe5f06da15e",
+            "id" : "af6aec48-b4bd-4f4a-82c7-d8c3fdf5f2e7",
             "name" : "col1",
             "title" : "Column 1",
             "type" : "region"
           } ],
           "definition" : "community_layout:section",
-          "id" : "059a45c1-4030-4cba-8d84-67099b29f4eb",
+          "id" : "9e2829b9-4a0f-4f18-82cd-992199b647e6",
           "type" : "component"
         } ],
-        "id" : "dcab82f1-f2f6-47d5-872c-04ad10b34a68",
+        "id" : "b7c5cac3-2ce0-40e1-8bda-39a778ddc5bd",
         "name" : "content",
         "title" : "Content",
         "type" : "region"
@@ -82,16 +73,16 @@
             "recordId" : "{!recordId}"
           },
           "definition" : "community_builder:seoAssistant",
-          "id" : "c1b88597-5ad5-4f42-90b9-99a55427c6e2",
+          "id" : "df793090-3a15-47cf-8975-5136c10dfcd0",
           "type" : "component"
         } ],
-        "id" : "b411d76f-ad31-4b16-b59c-8fbb0db201eb",
+        "id" : "9174e408-68fc-48bd-ad75-265cd764ae1d",
         "name" : "sfdcHiddenRegion",
         "title" : "sfdcHiddenRegion",
         "type" : "region"
       } ],
       "definition" : "community_layout:sldsFlexibleLayout",
-      "id" : "679fa50b-c950-4354-abf6-5f462fa9db43",
+      "id" : "32b0948f-c340-456c-af8b-6d26b7778527",
       "type" : "component"
     },
     "dataProviders" : [ ],

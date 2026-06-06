@@ -14,7 +14,7 @@
             "layoutDirectionTablet" : "column",
             "maxContentWidth" : "",
             "sectionColumnGutterWidth" : "",
-            "sectionConfig" : "{\"UUID\":\"53352670-5616-4540-b645-b75b16077949\",\"columns\":[{\"UUID\":\"ac5f2999-571c-4ffc-ab22-0cea6e8ec488\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+            "sectionConfig" : "{\"UUID\":\"b4dd301b-97a4-451c-a3be-2866d1e07810\",\"columns\":[{\"UUID\":\"05e4fb34-edc5-4ee6-a52a-3e6826fc811e\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
             "sectionMinHeight" : "",
             "sectionVerticalAlign" : "flex-start"
           },
@@ -27,7 +27,7 @@
                 "logoWidth" : 250
               },
               "definition" : "dxp_content_layout:siteLogo",
-              "id" : "48dbe363-59c6-4aeb-9b06-975a3c5af5d8",
+              "id" : "bf1e2d59-2af1-4d4e-83fe-7dea89fa5fbd",
               "type" : "component"
             }, {
               "attributes" : {
@@ -42,19 +42,19 @@
                 "submitButtonLabel" : "Sign Up"
               },
               "definition" : "community_login:selfRegister",
-              "id" : "af209c38-3b9c-4b63-8463-9fca39e3499a",
+              "id" : "572bc01f-403f-4c40-8528-ecfaa5009594",
               "type" : "component"
             } ],
-            "id" : "ac5f2999-571c-4ffc-ab22-0cea6e8ec488",
+            "id" : "05e4fb34-edc5-4ee6-a52a-3e6826fc811e",
             "name" : "col1",
             "title" : "Column 1",
             "type" : "region"
           } ],
           "definition" : "community_layout:section",
-          "id" : "53352670-5616-4540-b645-b75b16077949",
+          "id" : "b4dd301b-97a4-451c-a3be-2866d1e07810",
           "type" : "component"
         } ],
-        "id" : "2bafca1f-b1cc-4570-a8bc-5926f9565a25",
+        "id" : "a7489c05-5054-4e82-9f91-a8094aa9cc77",
         "name" : "content",
         "title" : "Content",
         "type" : "region"
@@ -67,16 +67,16 @@
             "recordId" : "{!recordId}"
           },
           "definition" : "community_builder:seoAssistant",
-          "id" : "ccbdab71-e43d-4641-ad64-7f5da25c6c48",
+          "id" : "5b80a3b7-d65f-4848-8978-c88f91fb6530",
           "type" : "component"
         } ],
-        "id" : "5d9efdc3-f2cf-4682-a9e4-94833b727a65",
+        "id" : "459b81c9-7ec9-4ea7-970f-3f4c8998e628",
         "name" : "sfdcHiddenRegion",
         "title" : "sfdcHiddenRegion",
         "type" : "region"
       } ],
       "definition" : "community_layout:sldsFlexibleLayout",
-      "id" : "06de8346-a01a-45ec-89a7-368baffbfbfe",
+      "id" : "cbe526ec-1e63-4f37-88aa-556dd05da779",
       "type" : "component"
     },
     "dataProviders" : [ ],
