@@ -16,9 +16,5 @@
         <members>*</members>
         <name>CustomSite</name>
     </types>
-    <types>
-        <members>*</members>
-        <name>StaticResources</name>
-    </types>
     <version>64.0</version>
 </Package>
